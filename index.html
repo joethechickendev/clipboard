@@ -5,36 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copy & Close</title>
     <script>
-        document.addEventListener("DOMContentLoaded", async () => {
+        function copyManually() {
             const urlParams = new URLSearchParams(window.location.search);
             const text = urlParams.get("text");
 
             if (text) {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    console.log("Copied:", text);
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("Copied to clipboard!");
                     window.close();
-                } catch (err) {
+                }).catch(err => {
                     console.error("Clipboard copy failed:", err);
-                    document.body.innerHTML = `<button onclick="copyManually()">Click to Copy</button>`;
-                }
+                });
             } else {
-                console.error("No text parameter provided.");
+                alert("No text provided.");
             }
-        });
-
-        function copyManually() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const text = urlParams.get("text");
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Copied to clipboard!");
-                window.close();
-            }).catch(err => {
-                console.error("Manual clipboard copy failed:", err);
-            });
         }
     </script>
 </head>
 <body>
+    <button onclick="copyManually()">Click to Copy</button>
 </body>
 </html>
