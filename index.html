@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy & Close</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const text = urlParams.get("text");
+
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    window.close();
+                }).catch(err => {
+                    console.error("Clipboard copy failed:", err);
+                });
+            } else {
+                console.error("No text parameter provided.");
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
